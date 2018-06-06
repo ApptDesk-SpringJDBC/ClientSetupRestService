@@ -1,0 +1,24 @@
+<!-- Page container starts -->
+<section id="page">
+    <section class="page_container">
+        <form name="loginForm" ng-init="loadClients()">
+            <div class="box_container">
+                <h1>Login Now</h1>
+                <div class="box login_box" style="color:red"><label></label>{{loginErrorMessage}}</div>
+                <div class="box login_box" ng-class="{ 'has-error': loginForm.txtUserName.$invalid && loginForm.txtUserName.$dirty }">
+                    <label>User Name:</label><input type="text" name="txtUserName" ng-model="loginInfo.username" class="form-control" required placeholder="User Name">
+                    <label>Password:</label><input type="password" name="txtPassword" ng-model="loginInfo.password" required placeholder="Password">
+                    <label>Client:</label>
+                    <select name="cblClient" ng-model="loginInfo.clientId">
+                        <option value="-1">New</option>
+                        <option ng-repeat="client in clients" value="{{client.clientId}}">{{client.clientName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="button_container">
+                <div class="button_content"><input type="button" value="Login" ng-click="login(loginInfo)"> <input type="reset" value="Reset" ng-click="reset()"></div>
+            </div>
+        </form>
+    </section>
+</section>
+<!-- Page container ends -->

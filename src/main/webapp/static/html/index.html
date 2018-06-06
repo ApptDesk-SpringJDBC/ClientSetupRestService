@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+   <!-- <base href="static/html/index.html" />-->
+ 	<meta charset="UTF-8">
+	<title>Client Setup form</title>
+	<link href="static/css/global.css" rel="stylesheet" type="text/css">
+</head>
+<body ng-app="clientSetup">
+<!-- Header starts -->
+<div ng-include="'static/html/header.html'"></div>
+<!--<tile-header></tile-header>-->
+<!-- Header ends -->
+
+    <!-- Body starts -->
+    <div>
+        <div ng-view></div>
+    </div>
+<!-- footer -->
+<div ng-include="'static/html/footer.html'"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+	<script src="static/script/app.js"></script>
+
+    <script src="static/script/js/controller/loginController.js"></script>
+    <script src="static/script/js/controller/clientController.js"></script>
+    <script src="static/script/js/service/commonService.js"></script>
+    <script src="static/script/js/directive/tileHeader.js"></script>
+    <script src="static/script/js/controller/schedulerConfigController.js"></script>
+      <script src="static/script/js/directive/ng-files.js"></script>
+   
+</body>
+</html>

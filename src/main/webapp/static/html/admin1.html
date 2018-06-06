@@ -1,0 +1,129 @@
+<!-- Page container starts -->
+<section id="page">
+  <section class="page_container">
+  <form name="clientForm">
+    <div class="box_container">
+      <h1>Client Setup Details</h1>  
+      <div class="box"><label></label><span style= color:red>{{errorMessage}}</span></div>
+      <div class="box"><label></label><span></span></div>
+      <div class="box">
+        <label>Client Name:</label><input type="text" name="txtClientName" ng-model="formData.clientData.clientName" required placeholder="Client Name" maxlength=="50">
+     	<!-- <label></label><p ng-show="clientForm.txtClientName.$invalid && !clientForm.txtClientName.$pristine">ClientName is required.</p>-->
+        <label>Client Website:</label><input type="text" name="txtClientWebsite" ng-model="formData.clientData.clientWebsite" required placeholder="Client Website" maxlength=="50"> 
+        <label>Client Address:</label><input type="text" name="txtClientAddress" ng-model="formData.clientData.clientAddress" required placeholder="Client Address" maxlength=="250">
+        <label>Client City:</label><input type="text" name="txtClientCity" ng-model="formData.clientData.clientCity" required placeholder="City" maxlength="60">
+        <label>Client State:</label>
+        <select name="clientState" ng-model="formData.clientData.clientState" class="state">
+          <option ng-repeat="state in states" value="{{state}}">{{state}}</option>
+        </select>
+       
+        <label class="small">Client Zipcode:</label><input type="text" name="txtClientZip" class="zipcode" ng-model="formData.clientData.clientZip" required placeholder="Zip Code" maxlength="8">
+        <label>Client Timezone:</label>
+        <select name="timeZone" ng-model="formData.clientData.clientTimeZone">
+          <option ng-repeat="timeZone in timeZones" value="{{timeZone}}">{{timeZone}}</option>
+        </select>
+        
+        <label>Client Logo:</label><input name="txtLogo" ng-files="getTheFiles($files)" type="file" multiple>
+        <label>Client Code:</label><input type="text" name="txtClientCode" ng-model="formData.clientData.clientCode" required placeholder="Client Code" maxlength="8">
+      </div>
+
+      <div class="box box_last">
+        <label>Contact Person:</label><input type="text" name="txtContactPerson" ng-model="formData.clientData.contactPerson" required placeholder="Contact Person" maxlength="60">  
+        <label>Contact Title:</label><input type="text" name="txtContactTitle" ng-model="formData.clientData.contactTitle" required placeholder="Contact Title">
+        <label>Contact Phone:</label><input type="text" name="txtContactPhone" ng-model="formData.clientData.contactPhone" required placeholder="Contact Phone">
+        <label>Contact Email:</label><input type="email" name="txtContactEmail" ng-model="formData.clientData.contactEmail" required placeholder="Contact Email">
+        <label>Billing Name:</label><input type="text" name="txtBillingName" ng-model="formData.clientData.billingName" required placeholder="Billing Name">
+        <label>Billing Email:</label><input type="email" name="txtBillingEmail" ng-model="formData.clientData.billingEmail" required placeholder="Billing Email">
+        <label>Billing CC Email:</label><input type="email" name="txtBillingCCEmail" ng-model="formData.clientData.billingCCEmail" required placeholder="Billing CCEmail">
+      </div>
+    </div>
+    
+    <!--scheduler sections starts here -->
+    <div class="scheduler_content">
+       <label>Scheduler:</label><input name="onlineScheduler" type="checkbox" ng-model="formData.clientData.onlineScheduler">Online Scheduler 
+       <input name="phoneScheduler" type="checkbox" ng-model="formData.clientData.phoneScheduler" ng-click="enablePrefOptions()">Phone Scheduler<div class="clearAll"></div>
+       <label>&nbsp;</label><!-- This is required for the space -->
+       <span ng-show="formData.clientData.phoneScheduler">
+	       <label class="small">Preferred Area Code:</label><input type="text" name="txtPreferredAreaCode" ng-model="formData.clientData.preferredAreaCode" placeholder="Area Code" maxlength="3">
+	      
+	       <label class="small">Preferred City:</label><input type="text" name="txtPreferredCity" ng-model="formData.clientData.preferredCity" placeholder="City" maxlength="200">
+	       <!-- <label class="small"></label><span style="color:red">Please enter clientName</span>-->
+	       <label class="small">Preferred County:</label><input type="text" name="txtPreferredCountry" ng-model="formData.clientData.preferredCountry" placeholder="Country" maxlength="20">
+	       <!-- <label class="small"></label><span style="color:red">Please enter clientName</span>-->
+       </span>
+    </div>
+    <!--scheduler sections ends here -->
+
+
+    <div class="box_container hrLine">
+      <!--List of Documents starts here -->
+      <h2 class="heading2">List of Documents to Bring</h2><span class="float_right pad20" ng-show="isAdmin">
+      <input name="hideListOfDocsToBring" type="checkbox" ng-model="formData.clientData.hideListOfDocsToBring">Hide</span>
+      <div><textarea name="docs" rows="5" cols="135" ng-model="formData.listOfDocs" ng-hide="formData.clientData.hideListOfDocsToBring"></textarea></div>
+      <!--List of Documents ends here -->
+	</div>
+	
+	<div class="box_container hrLine">
+      <!--Locations starts here -->
+      <h2 class="heading2">Locations</h2><img src="static/images/plus.png" style="cursor:pointer" ng-click="addLocationRow()" ng-hide="clientData.hideLocationInput"><span class="float_right pad20" ng-show="isAdmin">
+      <input name="hideLocationInput" type="checkbox" ng-model="formData.clientData.hideLocationInput">Hide</span>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" ng-hide="formData.clientData.hideLocationInput">
+        <tr>
+          <th width="17%">Name</th>
+          <th width="22%">Address</th>
+          <th width="21%">City</th>
+          <th width="9%">State</th>
+          <th width="10%">Zip Code</th>
+          <th width="14%">Time Zone</th>
+          <th width="7%">&nbsp;</th>
+        </tr>
+        
+        <tr ng-repeat="locRow in locRows">
+          <td><input type="text" name="locations[$index].name" ng-model="formData.locations[$index].name" maxlength="50"></td>
+          <td><input type="text" name="locations[$index].address" ng-model="formData.locations[$index].address" maxlength="200"></td>
+          <td><input type="text" name="locations[$index].city" ng-model="formData.locations[$index].city" maxlength="50"></td>
+          <td><select name="locations[$index].state" ng-model="formData.locations[$index].state">
+             <option ng-repeat="state in states" value="{{state}}">{{state}}</option>
+        	</select></td>
+          <td><input type="text" name="locations[$index].zip" ng-model="formData.locations[$index].zip" maxlength="10"></td>
+          <td><select name="locations[$index].timeZone" ng-model="formData.locations[$index].timeZone">
+           <option ng-repeat="timeZone in timeZones" value="{{timeZone}}">{{timeZone}}</option>
+          </select></td> 
+          <td align="center"><img src="static/images/delete.png" alt="Delete" ng-click="deleteLocationRow($index)" style="cursor:pointer"></td>
+        </tr>
+        
+      </table>
+      <!--Locations ends here -->
+	</div>
+	<!-- <div ng-include="'static/html/texteditor.html'"></div>-->
+	<div class="box_container hrLine">
+      <!--Services starts here -->
+      <h2 class="heading2">Services</h2><img src="static/images/plus.png" style="vertcial-align:middle;cursor:pointer" ng-hide="fromData.clientData.hideServiceInput" ng-click="addServiceRow()">
+      <span class="float_right pad20" ng-show="isAdmin"><input name="hideServiceInput" type="checkbox" ng-model="formData.clientData.hideServiceInput"> Hide</span>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" ng-hide="formData.clientData.hideServiceInput"">
+        <tr>
+          <th width="60%">Name</th>
+          <th width="9%">Duration</th>
+          <th width="24%">Allow Duplicate Appts?</th>
+          <th width="7%">&nbsp;</th>
+        </tr>
+        <tr ng-repeat="serRow in serviceRows"> 
+          <td><input type="text" name="formData.services[$index].name" ng-model="formData.services[$index].name" maxlength="50"></td>
+          <td><input type="text" name="formData.services[$index].duration" ng-model="formData.services[$index].duration" maxlength="4"></td>
+          <td><input type="checkbox" name="formData.services[$index].allowDuplicateAppts" ng-model="formData.services[$index].allowDuplicateAppts" checked></td>
+            <!-- <input type="radio" name="formData.services[$index].allowDuplicateAppts" ng-model="formData.services[$index].allowDuplicateAppts" value="false"><label for="radio">No</label></td> -->
+          	<td align="center"><img src="static/images/delete.png" alt="Delete" ng-click="deleteServiceRow($index)"></td>
+        </tr>
+       
+      </table>
+      <!--Services ends here -->
+
+    </div>
+
+    <div class="button_container">
+      <div class="button_content"><input type="button" value="Save" ng-click="save(formData)"> <input type="button" value="Next" ng-show="isAdmin" ng-click="next(formData)"> <input type="reset" value="Reset" ng-click="reset()"></div>
+    </div>
+  </form>
+  </section>
+</section>
+<!-- Page container ends -->

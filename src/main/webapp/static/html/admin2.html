@@ -1,0 +1,60 @@
+<!-- Page container starts -->
+<section id="page">
+  <section class="page_container">
+  <form name="">
+    <div class="box_container">
+      <h1>Scheduler Confirmation</h1>
+      <div class="box"><span>{{errorMessage}}</span></div>
+      <div class="box">
+        <!-- <label>Client Code:</label><input type="text" name="txtClientCode" ng-model="schedulerConfig.">-->
+        <label>OnlineScheduler URL:</label><input type="text" name="txtURL" ng-model="schedulerConfig.onlineSchedulerURL">
+        <label>Database Name:</label><input type="text" name="txtDatabaseName" ng-model="schedulerConfig.database">
+        <label>User Name:</label><input type="text" name="txtUserName" ng-model="schedulerConfig.userName">
+        <label>Password:</label><input name="txtPassword" type="password" ng-model="schedulerConfig.password">
+      </div>
+      
+      <div class="box box_last">
+        <label>Calendar Block Time:</label><input type="number" name="txtCalBlockTime" ng-model="schedulerConfig.calendarBlockTime" maxlength="4">
+        <label>Day Start Time:</label>
+          <select name="txtHRs" class="hrs" ng-model="startHrs">
+          <option></option>
+          <option ng-repeat="i in hrs" value={{i}}>{{i}}</option>
+        </select>
+        
+         <select name="txtMins" class="mins" ng-model="startMins">
+          <option></option>
+          <option ng-repeat="i in mins" value={{i}}>{{i}}</option>
+        </select>
+        
+        <select name="cblState" class="time" ng-model="startTimeTypeStr">
+          <option></option>
+          <option>AM</option>
+          <option>PM</option>
+        </select>
+        
+        
+        
+        <label>Day End Time:</label>
+        <input type="text" name="txtHRs" class="time" maxlength="2" ng-model="endHrs"> <input type="text" name="txtMins"  class="time" ng-model="endMins" maxlength="2">
+        <select name="cblState" class="time" ng-model="endTimeTypeStr">
+          <option>Select</option>
+          <option>AM</option>
+          <option>PM</option>
+        </select>
+        
+        
+        <label>Call Center Logic:</label> 
+        <input name="" type="checkbox" value="" ng-model="schedulerConfig.callCenterLogic"><div class="clearAll"></div>
+        <!-- <input name="" type="radio" value="">Yes <input name="" type="radio" value="">No<div class="clearAll"></div> -->
+        <label>Use Template:</label>
+        <select name="cblState">
+          <option>Select</option>
+        </select>
+      </div>
+    </div>
+    <div class="button_container">
+      <div class="button_content"><input type="button" value="Create Account" ng-click="confirm(schedulerConfig)"> <input type="reset" value="Reset"></div>
+    </div>
+  </form>
+  </section>
+</section>

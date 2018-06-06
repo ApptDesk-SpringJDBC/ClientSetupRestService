@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/tx
+       		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+
+    <!-- Activates various annotations to be detected in bean classes -->
+    <context:annotation-config />
+
+    <!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
+     For example @Controller and @Service. Make sure to set the correct base-package-->
+
+   	<context:component-scan base-package="com.telappoint.clientsetup"/>
+    <!-- Configures the annotation-driven Spring MVC Controller programming model.
+    Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+
+    <mvc:annotation-driven />
+    
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+     <!-- one of the properties available; the maximum file size in bytes -->
+    <property name="maxUploadSize" value="10000000"/>
+	</bean>
+    
+    <mvc:resources mapping="/resources/**" location="/src/main/resources/" />
+    <context:property-placeholder location="classpath:clientsetupdb.properties" />
+    <bean id="clientSetupDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${app.jdbc.driverClassName}"/>
+        <property name="url" value="${app.jdbc.clientsetupdb.url}"/>
+        <property name="username" value="${app.jdbc.clientsetupdb.username}"/>
+        <property name="password" value="${app.jdbc.clientsetupdb.password}"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="clientSetupDataSource"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="clientSetupDataSource"/>
+    </bean>
+    
+    <!-- Enable annotation style of managing transactions -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <bean name="clientSetupDAO" class="com.telappoint.clientsetup.common.dao.impl.ClientSetupDAOImpl">
+        <constructor-arg ref="clientSetupJdbcTemplate"/>
+    </bean>
+     
+    <bean id="clientSetupJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="clientSetupDataSource"></property>
+    </bean>
+</beans>

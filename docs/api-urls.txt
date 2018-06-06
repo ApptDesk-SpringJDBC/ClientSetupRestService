@@ -1,0 +1,164 @@
+http://localhost:8085/clientsetupRestService/clientsetup/authenticate?userName=admin&password=Password$1
+
+
+http://localhost:8085/clientsetupRestService/clientsetup/addClient
+Content-Type: application/json
+
+{
+    "clientName":"demo docs",
+    "clientCode":"DEMODOC2",
+	"clientLogoFilePath":"",
+	"contactPerson":"BalajiN",
+	"contactPhone":"98872728376",
+	"contactEmail":"balajiinsr@gamil.com",
+	"clientWebsite":"teest.com",
+	"clientAddress":"addr",	
+	"clientCity":"asdf",
+    "clientState":"ID",
+	"clientZip":"2342345",
+	"clientTimeZone":"UTZ",
+	"billingName":"",
+	"billingEmail":"",
+	"billingCCEmail":"",
+	"onlineScheduler":true,
+	"phoneScheduler":true,
+	"preferredAreaCode":"IN",
+	"preferredCity":"BLR",
+	"preferredCountry":"IN",
+	"phoneReminder":"Y",
+	"textReminder":"N",
+	"emailReminder":"Y",
+    "status":1
+}
+
+{
+"clientName":"demo docs",
+"clientCode":"DEMODOC2",
+"clientLogoFilePath":"",
+"contactPerson":"BalajiN",
+"contactPhone":"98872728376",
+"contactEmail":"balajiinsr@gamil.com",
+"clientWebsite":"teest.com",
+"clientAddress":"addr",
+"clientCity":"asdf",
+"clientState":"ID",
+"clientZip":"2342345",
+"clientTimeZone":"UTZ",
+"billingName":"",
+"billingEmail":"",
+"billingCCEmail":"",
+"onlineScheduler":true,
+"phoneScheduler":true,
+"preferredAreaCode":"IN",
+"preferredCity":"BLR",
+"preferredCountry":"IN",
+"phoneReminder":"Y",
+"textReminder":"N",
+"emailReminder":"Y",
+"status":1
+}
+
+"hideLocationInput":false,
+"hideRemindersInput":false,
+"hideSchedulerInput":false,
+"hideServiceInput":false
+ "hideListOfDocsToBring":false,
+ 
+
+
+====================
+
+{
+"clientName": "Balaji", 
+"clientCode":"DEMODOCb2",
+"clientLogoFilePath": "",
+"contactPerson": "baid",
+"contactPhone": "nsdfi",
+"billingCCEmail":"balajinsr@gmail.com",
+"billingEmail":"balajinsr@gmail.com",
+"billingName":"balajinsr@gmail.com",
+"clientAddress":"asdfi",
+"clientCity":"adfsaddsf",
+"clientState":"IL",
+"clientTimeZone":"US/Aleutian",
+"clientWebsite":"Naid",
+"clientZip":"",
+"contactEmail":"balajinsr@gmail.com",
+"contactPerson":"baid",
+"contactPhone":"nsdfi",
+"contactTitle":"ndi",
+"emailReminder":"",
+
+"phoneReminder":"",
+
+"preferredAreaCode":"",
+"preferredCity":"",
+"preferredCountry":"",
+"preferrerdACity":"BA",
+"preferrerdAreaCode":"in",
+"preferrerdCountry":"IN",
+"status":1,
+"textReminder":""   
+}
+
+
+http://localhost:8085/clientsetupRestService/clientsetup/addLocations
+Content-Type: application/json
+
+
+{
+ "clientId":1
+[{
+ "name":"Loc1",
+ "address":"Addr1",
+ "city":"Blr1",
+ "state":"KA",
+ "zip":"1231233",
+  "timeZone":"UTC"},
+ {
+ "name":"LOC2",
+ "address":"Address1",
+ "city":"Blr2",
+ "state":"KA",
+ "zip":"3456533",
+  "timeZone":"UTC"}
+  ]
+}
+
+ 
+http://localhost:8085/clientsetupRestService/clientsetup/addServices
+Content-Type: application/json
+[{"clientId":1,
+ "name":"Servi1",
+  "duration":30,
+  "allowDuplicateAppts":"N"},
+ {"clientId":1,
+ "name":"Serv2",
+  "duration":30,
+  "allowDuplicateAppts":"Y"}
+]
+
+
+http://localhost:8085/clientsetupRestService/clientsetup/addSchedulerConfig
+Content-Type: application/json
+
+{
+ "clientId":1,
+ "onlineSchedulerURL":"http://localhost:3223/test.jsp",
+ "database":"test",
+ "calendarBlockTime":15,
+ "dayStartTime":"08:00:00",
+ "dayEndTime":"09:00:00",
+ "callCenterLogic":"Y",
+ "userName":"balaji",
+ "password":"test",
+ "dbTemplate":""
+}
+
+http://localhost:8085/clientsetupRestService/clientsetup/addListThingsBring
+{
+  "clientId":1,
+  "serviceIds":["1","2"],
+  "langCode":"us-en",
+  "listOfDocs":"Test, Test1"
+}
